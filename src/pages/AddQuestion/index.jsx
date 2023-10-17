@@ -5,6 +5,9 @@ import AppInput from "../../common/AppInput";
 import AddQuestionModal from "./components/AddQuestionModal";
 import { useRef, useState } from "react";
 import { AddExameSchema } from "../../controllers/ValidationSchema";
+import { useDispatch } from "react-redux";
+import { setQuiz } from "../../Redux/reducerSlice/quiz";
+import { useNavigate } from "react-router-dom";
 
 
 const initialValues = {
@@ -16,13 +19,17 @@ const initialValues = {
 
 export default function AddQuestion() {
     const formikRef = useRef()
+    const dispatch =  useDispatch()
     const [isError , setIsError] = useState(false)
+    const navigate = useNavigate()
 
     const onSubmit = (value) => {
         if(value?.questions_answers.length ===  0) {
             setIsError(true)
         }else{
-            console.log({...value , id:new Date()})
+            const data ={...value , id:new Date()}
+            dispatch(setQuiz(data))
+            navigate("quiz")
         }
     }
 

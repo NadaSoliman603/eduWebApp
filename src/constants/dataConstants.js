@@ -2,7 +2,7 @@ export const notFountImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIA
 export const userImage = "https://randomuser.me/api/portraits/men/97.jpg"
 
 
-const quies = {
+export const quiz = {
     "created": "2020-09-09 09:26:39",
     "description": "Description",
     "id": 29,
