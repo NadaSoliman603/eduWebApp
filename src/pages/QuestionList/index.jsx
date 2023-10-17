@@ -8,7 +8,7 @@ const QuestionList = () => {
     const quiz = useSelector(state=>state?.quiz)
     return (
         <Flex bg="gray.100" align="center" justify="center" py={20} minHeight="100vh">
-            <Box bg="white" p={6} rounded="md" w={"60%"}>
+            <Box bg="white" p={6} rounded="md" width={{base:"90%" , md:"60%"}}>
                 <Heading>{quiz?.title}</Heading>
                 <Text>{quiz?.description}</Text>
                 <hr/>
