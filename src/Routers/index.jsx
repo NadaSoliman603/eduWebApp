@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
+import AddQuestion from "../pages/AddQuestion";
 
 
 
@@ -8,7 +8,7 @@ const AppRouts = (props) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AddQuestion />} />
       </Routes>
     </BrowserRouter>
   );
