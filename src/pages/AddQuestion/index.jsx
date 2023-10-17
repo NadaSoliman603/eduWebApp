@@ -1,9 +1,9 @@
 import { Formik } from "formik";
-import { Box, Button, Card, CardBody, CardHeader, Checkbox, Flex, Heading, VStack } from "@chakra-ui/react";
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Card, CardBody, CardHeader, Checkbox, Flex, Heading, VStack } from "@chakra-ui/react";
 import { Text } from '@chakra-ui/react'
 import AppInput from "../../common/AppInput";
 import AddQuestionModal from "./components/AddQuestionModal";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { AddExameSchema } from "../../controllers/ValidationSchema";
 
 
@@ -16,16 +16,23 @@ const initialValues = {
 
 export default function AddQuestion() {
     const formikRef = useRef()
+    const [isError , setIsError] = useState(false)
+
     const onSubmit = (value) => {
-        console.log(value)
+        if(value?.questions_answers.length ===  0) {
+            setIsError(true)
+        }else{
+            console.log({...value , id:new Date()})
+        }
     }
 
     const onAddQuestion = (value) => {
+        setIsError(false)
         const val = formikRef.current?.values?.questions_answers
-
         formikRef.current?.setFieldValue('questions_answers', [...val, value,])
-
     }
+
+
     return (
         <Flex bg="gray.100" align="center" justify="center" py={20} minHeight="100vh">
             <Box bg="white" p={6} rounded="md" w={"60%"}>
@@ -43,22 +50,32 @@ export default function AddQuestion() {
                                     name="title"
                                     type="text"
                                     placeholder="Question Title"
+                                    error={errors.title}
+                                    touched={touched.title}
                                     lable={"Title"} />
 
                                 <AppInput
                                     name="description"
                                     type="text"
                                     placeholder="Question Description"
+                                    error={errors.description}
+                                    touched={touched.description}
                                     lable={"Description"} />
 
                                 <AppInput
                                     name="vedioUrl"
                                     type="text"
+                                    error={errors.vedioUrl}
+                                    touched={touched.vedioUrl}
                                     placeholder="https://www.youtube.com/watch?v=e6EGQFJLl04"
                                     lable={"Vedio Link"} />
 
                                 <AddQuestionModal onAddQuestion={onAddQuestion} />
-
+                                {isError && <Alert status='error'>
+                                    <AlertIcon />
+                                    <AlertDescription>you have to  enter in a question  at less.</AlertDescription>
+                                </Alert>}
+                                {errors.questions_answers && <Text color={"red"}>Required</Text>}
                                 {values?.questions_answers?.map((item, index) => {
                                     return <Card key={index} flex={1} className="row" width={"100%"} >
                                         <CardBody >

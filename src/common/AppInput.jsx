@@ -15,7 +15,7 @@ const AppInput = (props) => {
           type={type || "text"}
           placeholder={placeholder}
         />
-        {error && touched &&  <Text  color={"red"}>Required</Text>}
+        {error && touched &&  <Text  color={"red"}>{error}</Text>}
       </FormControl>
     );
 }
